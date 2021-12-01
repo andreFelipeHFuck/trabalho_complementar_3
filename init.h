@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include<stdio_ext.h>
 
 /*
 Trabalho complementar 3
@@ -10,16 +11,6 @@ Arquivo com as estruturas de dados e com as funções
 /*
 Structs 
 */
-
-// Pessoa 
-typedef struct 
-{
-    char nome[100];
-    char email[100];
-    Endereco endereco;
-    Telefone telefone;
-    Data data_nascimento;
-}Pessoa;
 
 // Endereço
 typedef struct 
@@ -46,5 +37,14 @@ typedef struct
     int dia, mes, ano;
 }Data;
 
+// Pessoa 
+typedef struct 
+{
+    char nome[100];
+    char email[100];
+    Endereco endereco;
+    Telefone telefone;
+    Data data;
+}Pessoa;
 
 
