@@ -1,41 +1,32 @@
 #include "init.h"
-
-Pessoa *p;
-
-void le_pessoa(int n){
-    int i;
-    p = (Pessoa*) malloc(n * sizeof(Pessoa));
-    for(i = 0; i < n; i++){
-        printf("Digite o nome: ");
-        scanf("%s", p[i].nome);
-        printf("Digite o email: ");
-        scanf("%s", p[i].email);
-
-        // Endereço
-        printf("Digite o endereço\n");
-        printf("Digite o nome da rua: ");
-        __fpurge(stdin);
-        fgets(p[i].endereco.rua, 100, stdin);
-        // printf("Digite o numero da casa: ");
-        // scanf("%d", &p[i].endereco.numero);
-
-   }
- 
-}
-
-void mostra_pessoa(Pessoa p){
-    printf("Nome: %s\n", p.nome);
-    printf("Email: %s\n", p.email);
-}
+#include "funcoes.c"
 
 int main(){
-   int  i, n;
-   scanf("%d", &n);
-   
-   le_pessoa(n);
+  int opt;
+  int nPessoa = 0;
+  Pessoa pessoa[6];
 
-   printf("\n");
-   for(i = 0; i <= n; i++){
-       printf("%s\n", p[i].endereco.rua);
-   }
+//  pegaArquivo();
+//  inserePessoa(pessoa, &nPessoa);
+//  pegaArquivo();
+
+//  menu(&opt);
+//  printf("%d", opt);
+  do{
+    menu(&opt) ;
+     switch (opt)
+     {
+     case 1:
+       inserePessoa(pessoa, &nPessoa);
+       break;
+
+      case 2:
+        mostra_pessoas(pessoa);
+        break;
+
+     default:
+       break;
+     }
+  }while (opt != 3);
+  return 0;
 }
