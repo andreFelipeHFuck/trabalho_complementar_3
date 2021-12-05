@@ -6,12 +6,8 @@ int main(){
   int nPessoa = 0;
   Pessoa pessoa[6];
 
-//  pegaArquivo();
-//  inserePessoa(pessoa, &nPessoa);
-//  pegaArquivo();
+  pegaArquivo(pessoa, &nPessoa);
 
-//  menu(&opt);
-//  printf("%d", opt);
   do{
     menu(&opt) ;
      switch (opt)
@@ -21,8 +17,11 @@ int main(){
        break;
 
       case 2:
-        mostra_pessoas(pessoa);
+        mostra_pessoas(pessoa, nPessoa);
         break;
+
+      case 3:
+        escreverArquivo(pessoa, &nPessoa);
 
      default:
        break;

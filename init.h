@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include<stdio_ext.h>
+#include <stdio_ext.h>
 
 /*
 Trabalho complementar 3
@@ -48,3 +48,4 @@ typedef struct
 }Pessoa;
 
 
+Pessoa pessoa_vazia();
