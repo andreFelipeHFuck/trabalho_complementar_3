@@ -47,5 +47,11 @@ typedef struct
     Data data;
 }Pessoa;
 
+typedef struct 
+{
+    int num_contatos;
+    Pessoa *lista;
+}Agenda;
+
 
 Pessoa pessoa_vazia();

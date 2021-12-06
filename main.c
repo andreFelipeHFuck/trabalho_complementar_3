@@ -4,24 +4,28 @@
 int main(){
   int opt;
   int nPessoa = 0;
-  Pessoa pessoa[6];
+  Pessoa *pessoas;
+  int n = 3;
 
-  pegaArquivo(pessoa, &nPessoa);
+  
+   
+  pegaArquivo(pessoas, &nPessoa);
 
   do{
     menu(&opt) ;
      switch (opt)
      {
      case 1:
-       inserePessoa(pessoa, &nPessoa);
+       
+       inserePessoa(pessoas, &nPessoa);
        break;
 
       case 2:
-        mostra_pessoas(pessoa, nPessoa);
+        mostra_pessoas(pessoas, nPessoa);
         break;
 
       case 3:
-        escreverArquivo(pessoa, &nPessoa);
+        escreverArquivo(pessoas, &nPessoa);
 
      default:
        break;
