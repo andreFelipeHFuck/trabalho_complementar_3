@@ -22,12 +22,13 @@ int main(){
         mostra_pessoas(agenda);
         break;
 
-      case 3:
+      case 4:
         escreverArquivo(agenda);
 
      default:
        break;
      }
-  }while (opt != 3);
+  }while (opt != 4);
+  free(agenda);
   return 0;
 }

@@ -1,26 +1,26 @@
 // Teste dois: iniciar agenda
 Agenda* iniciar_agenda(){
     Agenda *agenda = (Agenda*) malloc(sizeof(Agenda));
-    FILE *arq = fopen("agenda.bin", "rb");
+    FILE *arq = fopen("testes", "rb");
 
-    if(arq == NULL){
-        agenda->num_contatos = 0;
-        agenda->lista = 0;
-    }else{
+    if(arq){
         fread(&agenda->num_contatos, sizeof(int), 1, arq);
         agenda->lista = (Pessoa*) malloc (agenda->num_contatos * sizeof(Pessoa));
-        if(agenda->lista){
+        if(!agenda->lista){
+           printf("Nao foi possivel alocar vetor de contatos");
+        }else{
             fread(agenda->lista, sizeof(Pessoa), agenda->num_contatos, arq);
             fclose(arq);
-        }else{
-            printf("Nao foi possivel alocar vetor de contatos");
         }
+    }else{
+        agenda->num_contatos = 0;
+        agenda->lista = 0;
     }
     return agenda;
 }
 
 void escreverArquivo(Agenda *agenda){
-    FILE *arq = fopen("testes", "wb");
+    FILE *arq = fopen("testes", "wb+");
 
     if(arq == NULL){
         printf("Erro ao abrir o arquivo");
@@ -33,7 +33,9 @@ void escreverArquivo(Agenda *agenda){
 }
 
 void inserePessoa(Agenda *agenda){
-   
+    system("clear");
+
+    int resp;
     agenda->lista = (Pessoa*) realloc(agenda->lista, (agenda->num_contatos + 1) * sizeof(Pessoa));
 
     if(!agenda->lista){
@@ -104,24 +106,23 @@ void inserePessoa(Agenda *agenda){
 
     printf("\n");
     
-    // while (1)
-    // {
-    //     printf("Deseja registrar um nova pessoa?\n");
-    //     printf("1 - Sim\n");
-    //     printf("2 - Nao\n");
-    //     scanf("%d", &resp);
-
-    //     if((resp == 1) || (resp == 2)){
-    //         break;
-    //     }
-
-    //     if(resp == 1){
-    //         inserePessoa(pessoa, nPessoa);
-    //     }
-
-    // }
+    while (1)
+    {
+         printf("Deseja registrar um nova pessoa?\n");
+         printf("1 - Sim\n");
+         printf("2 - Nao\n");
+         scanf("%d", &resp);
+         if((resp == 1) || (resp == 2)){
+             break;
+         }
+         
+    }
+     if(resp == 1){
+        inserePessoa(agenda);
+    }
     
 }
+
 
 void mostra_pessoas(Agenda *agenda){
     
@@ -137,14 +138,22 @@ void mostra_pessoas(Agenda *agenda){
     }
 }
 
+void removeContato(Agenda *agenda){
+    printf("Entre com o o nome do contato a ser removido: \n");
+    char nome[100];
+    __fpurge(stdin);
+    fgets(nome, sizeof(nome), stdin);
+}
+
 // Menu
 
 void menu(int *opt){
-    //system("clear");
+    system("clear");
     printf("-----------Agenda---------- \n");
     printf("1 - Inserir novos contatos\n");
     printf("2 - Listar todos os contatos\n");
-    printf("3 - Sair\n");
+    printf("3 - Excluir contato\n");
+    printf("4 - Sair\n");
     printf("Entre com um opção: ");
     scanf("%d", opt);
 }
