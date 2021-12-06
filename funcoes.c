@@ -1,91 +1,53 @@
-
-// Teste
-// Alocação dinâmica
-
-Pessoa* alocarMemoria(){
-    Pessoa *p = (Pessoa*) malloc(1 * sizeof(Pessoa));
-    if(p = NULL){
-        printf("\nMEMORIA INSUFICIENTE\n");
-    }else{
-        return p;
-    }
-}
-
-// Realocação
-
-int realocarMemoria(Pessoa *pessoa, int i){
-    //printf("%d * %ld = %ld\n", (i + 1) , sizeof(Pessoa), (i + 1) * sizeof(Pessoa));
-    pessoa = (Pessoa*) realloc(pessoa, i * sizeof(Pessoa));
-    if(pessoa == NULL){
-        printf("\nNao foi possivel realocar!");
-    }else{
-        printf("\nRealocação feita com sucesso!");
-    }
-}
-
-
-
-// Abrir arqivos 
-void pegaArquivo(Pessoa *pessoa, int *nPessoa){
-    FILE *arq = fopen("testes", "rb+");
-    int i;
+// Teste dois: iniciar agenda
+Agenda* iniciar_agenda(){
+    Agenda *agenda = (Agenda*) malloc(sizeof(Agenda));
+    FILE *arq = fopen("agenda.bin", "rb");
 
     if(arq == NULL){
-        printf("Arquivo da agenda não encontrado. Criando nova agenda\n");
-        arq = fopen("testes", "wb+");
-        pessoa = alocarMemoria();
+        agenda->num_contatos = 0;
+        agenda->lista = 0;
     }else{
-        printf("Abrindo arquivo: \n");
-        fread(nPessoa, sizeof(int), 1, arq);
-        fread(pessoa, sizeof(Pessoa), *nPessoa, arq);
+        fread(&agenda->num_contatos, sizeof(int), 1, arq);
+        agenda->lista = (Pessoa*) malloc (agenda->num_contatos * sizeof(Pessoa));
+        if(agenda->lista){
+            fread(agenda->lista, sizeof(Pessoa), agenda->num_contatos, arq);
+            fclose(arq);
+        }else{
+            printf("Nao foi possivel alocar vetor de contatos");
+        }
     }
-
-    fclose(arq);
+    return agenda;
 }
 
-void escreverArquivo(Pessoa *pessoa, int *nPessoa){
-    FILE *arq = fopen("testes", "wb+");
+void escreverArquivo(Agenda *agenda){
+    FILE *arq = fopen("testes", "wb");
 
     if(arq == NULL){
         printf("Erro ao abrir o arquivo");
     }else{
         printf("Salvando alterações.");
-        fwrite(nPessoa, sizeof(int), 1, arq);
-        fwrite(pessoa, sizeof(Pessoa), *nPessoa, arq);
+        fwrite(&agenda->num_contatos, sizeof(int), 1, arq);
+        fwrite(agenda->lista, sizeof(Pessoa), agenda->num_contatos, arq);
     }
     fclose(arq);
 }
 
-//
-
-
-// Menu
-
-void menu(int *opt){
-    //system("clear");
-    printf("-----------Agenda---------- \n");
-    printf("1 - Inserir novos contatos\n");
-    printf("2 - Listar todos os contatos\n");
-    printf("3 - Sair\n");
-    printf("Entre com um opção: ");
-    scanf("%d", opt);
-}
-
-void inserePessoa(Pessoa *pessoa, int *nPessoa){
+void inserePessoa(Agenda *agenda){
    
+    agenda->lista = (Pessoa*) realloc(agenda->lista, (agenda->num_contatos + 1) * sizeof(Pessoa));
 
-    int resp;
-    //int j = *nPessoa;
+    if(!agenda->lista){
+        printf("Não foi possivel aumentar o vetor de contatos!");
+    }else{
+        // Nome e email
+        printf("Nome: ");
+        scanf("%s", agenda->lista[agenda->num_contatos].nome);
 
+        printf("Email: ");
+        scanf("%s",agenda->lista[agenda->num_contatos].email);
 
-    pessoa = (Pessoa*) realloc(pessoa, (*nPessoa + 1) * sizeof(Pessoa));
-
-    // Nome e email
-    printf("Nome: ");
-    scanf("%s", pessoa[*nPessoa].nome);
-
-    printf("Email: ");
-    scanf("%s", pessoa[*nPessoa].email);
+    }
+    agenda->num_contatos++;
 
     // Endereço
     // printf("Endereço\n");
@@ -141,7 +103,6 @@ void inserePessoa(Pessoa *pessoa, int *nPessoa){
     // scanf("%d", &pessoa[*nPessoa].data.ano);
 
     printf("\n");
-    *nPessoa +=  1;
     
     // while (1)
     // {
@@ -162,37 +123,35 @@ void inserePessoa(Pessoa *pessoa, int *nPessoa){
     
 }
 
-void mostra_pessoas(Pessoa *pessoa, int nPessoa){
+void mostra_pessoas(Agenda *agenda){
     
     printf("Contatos na agenda: \n\n");
+
     int i;
-    for(i = 0; i < nPessoa; i++){
+    for(i = 0; i < agenda->num_contatos; i++){
         printf("===================================\n" );
-        printf("Nome: %s\n", pessoa[i].nome);
-        printf("Email: %s\n", pessoa[i].email);
+        printf("Nome: %s\n", agenda->lista[i].nome);
+        printf("Email: %s\n", agenda->lista[i].email);
         printf("===================================\n" );
         //printf("Numero de telefone: (%d) %d\n", pessoa[i].telefone.dd, pessoa[i].telefone.numero);
     }
 }
 
+// Menu
 
-
-Pessoa pessoa_vazia(){
-    Pessoa pessoa;
-    strcpy(pessoa.nome, "\0");
-    strcpy(pessoa.email, "\0");
-    strcpy(pessoa.endereco.rua, "\0");
-    strcpy(pessoa.endereco.complemento, "\0");
-    strcpy(pessoa.endereco.bairro, "\0");
-    strcpy(pessoa.endereco.cidade, "\0");
-    strcpy(pessoa.endereco.pais, "\0");
-    pessoa.endereco.numero = 0;
-    pessoa.endereco.cep = 0;
-    pessoa.telefone.dd = 0;
-    pessoa.telefone.numero = 0;
-    pessoa.data.dia = 0;
-    pessoa.data.mes = 0;
-    pessoa.data.ano = 0;
-
-    return pessoa;
+void menu(int *opt){
+    //system("clear");
+    printf("-----------Agenda---------- \n");
+    printf("1 - Inserir novos contatos\n");
+    printf("2 - Listar todos os contatos\n");
+    printf("3 - Sair\n");
+    printf("Entre com um opção: ");
+    scanf("%d", opt);
 }
+
+
+
+
+
+
+

@@ -7,25 +7,23 @@ int main(){
   Pessoa *pessoas;
   int n = 3;
 
-  
+  Agenda *agenda = iniciar_agenda();
    
-  pegaArquivo(pessoas, &nPessoa);
-
   do{
     menu(&opt) ;
      switch (opt)
      {
      case 1:
        
-       inserePessoa(pessoas, &nPessoa);
+       inserePessoa(agenda);
        break;
 
       case 2:
-        mostra_pessoas(pessoas, nPessoa);
+        mostra_pessoas(agenda);
         break;
 
       case 3:
-        escreverArquivo(pessoas, &nPessoa);
+        escreverArquivo(agenda);
 
      default:
        break;
