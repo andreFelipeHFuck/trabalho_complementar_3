@@ -5,11 +5,11 @@ Agenda* iniciar_agenda(){
 
     if(arq){
         fread(&agenda->num_contatos, sizeof(int), 1, arq);
-        agenda->lista = (Pessoa*) malloc (agenda->num_contatos * sizeof(Pessoa));
+        agenda->lista = (Contato *) malloc (agenda->num_contatos * sizeof(Contato));
         if(!agenda->lista){
            printf("Nao foi possivel alocar vetor de contatos");
         }else{
-            fread(agenda->lista, sizeof(Pessoa), agenda->num_contatos, arq);
+            fread(agenda->lista, sizeof(Contato), agenda->num_contatos, arq);
             fclose(arq);
         }
     }else{
@@ -27,23 +27,26 @@ void escreverArquivo(Agenda *agenda){
     }else{
         printf("Salvando alterações.");
         fwrite(&agenda->num_contatos, sizeof(int), 1, arq);
-        fwrite(agenda->lista, sizeof(Pessoa), agenda->num_contatos, arq);
+        fwrite(agenda->lista, sizeof(Contato), agenda->num_contatos, arq);
     }
     fclose(arq);
 }
 
-void inserePessoa(Agenda *agenda){
+void insereContato(Agenda *agenda){
     system("clear");
 
     int resp;
-    agenda->lista = (Pessoa*) realloc(agenda->lista, (agenda->num_contatos + 1) * sizeof(Pessoa));
+    agenda->lista = (Contato*) realloc(agenda->lista, (agenda->num_contatos + 1) * sizeof(Contato));
 
     if(!agenda->lista){
         printf("Não foi possivel aumentar o vetor de contatos!");
     }else{
-        // Nome e email
+        // Nome, sobrenome e email
         printf("Nome: ");
         scanf("%s", agenda->lista[agenda->num_contatos].nome);
+
+        printf("Sobrenome: ");
+        scanf("%s", agenda->lista[agenda->num_contatos].sobrenome);
 
         printf("Email: ");
         scanf("%s",agenda->lista[agenda->num_contatos].email);
@@ -108,7 +111,7 @@ void inserePessoa(Agenda *agenda){
     
     while (1)
     {
-         printf("Deseja registrar um nova pessoa?\n");
+         printf("Deseja registrar um novo contato?\n");
          printf("1 - Sim\n");
          printf("2 - Nao\n");
          scanf("%d", &resp);
@@ -118,13 +121,13 @@ void inserePessoa(Agenda *agenda){
          
     }
      if(resp == 1){
-        inserePessoa(agenda);
+        insereContato(agenda);
     }
     
 }
 
 
-void mostra_pessoas(Agenda *agenda){
+void mostraContatos(Agenda *agenda){
     
     printf("Contatos na agenda: \n\n");
 
@@ -132,23 +135,42 @@ void mostra_pessoas(Agenda *agenda){
     for(i = 0; i < agenda->num_contatos; i++){
         printf("===================================\n" );
         printf("Nome: %s\n", agenda->lista[i].nome);
+        printf("Sobrenome: %s\n", agenda->lista[i].sobrenome);
         printf("Email: %s\n", agenda->lista[i].email);
         printf("===================================\n" );
-        //printf("Numero de telefone: (%d) %d\n", pessoa[i].telefone.dd, pessoa[i].telefone.numero);
+       
     }
 }
 
 void removeContato(Agenda *agenda){
+    system("clear");
+
+    int i = 0;
+    char nome[100], sobrenome[100];
+
     printf("Entre com o o nome do contato a ser removido: \n");
-    char nome[100];
-    __fpurge(stdin);
-    fgets(nome, sizeof(nome), stdin);
+    printf("Nome: ");
+    scanf("%s", nome);
+    printf("Sobrenome: ");
+    scanf("%s", sobrenome);
+
+    while (i < agenda->num_contatos){
+        if(strcmp(nome, agenda->lista[i].nome) == 0 && strcmp(sobrenome, agenda->lista[i].sobrenome)){
+            agenda->lista[i] = agenda->lista[agenda->num_contatos - 1];
+            agenda->lista = (Contato*) realloc(agenda->lista, (agenda->num_contatos - 1) * sizeof(Contato));
+            agenda->num_contatos--;
+            printf("Contato excluido\n");
+        }else{
+            printf("Contato não encontrado\n");
+        }
+        i++;
+    } 
 }
 
 // Menu
 
 void menu(int *opt){
-    system("clear");
+    //system("clear");
     printf("-----------Agenda---------- \n");
     printf("1 - Inserir novos contatos\n");
     printf("2 - Listar todos os contatos\n");

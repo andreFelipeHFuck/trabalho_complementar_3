@@ -37,21 +37,19 @@ typedef struct
     int dia, mes, ano;
 }Data;
 
-// Pessoa 
+// Contato 
 typedef struct 
 {
     char nome[100];
+    char sobrenome[100];
     char email[100];
     Endereco endereco;
     Telefone telefone;
     Data data;
-}Pessoa;
+}Contato;
 
 typedef struct 
 {
     int num_contatos;
-    Pessoa *lista;
+    Contato *lista;
 }Agenda;
-
-
-Pessoa pessoa_vazia();

@@ -3,10 +3,6 @@
 
 int main(){
   int opt;
-  int nPessoa = 0;
-  Pessoa *pessoas;
-  int n = 3;
-
   Agenda *agenda = iniciar_agenda();
    
   do{
@@ -14,16 +10,20 @@ int main(){
      switch (opt)
      {
      case 1:
-       
-       inserePessoa(agenda);
+       insereContato(agenda);
        break;
 
       case 2:
-        mostra_pessoas(agenda);
+        mostraContatos(agenda);
+        break;
+
+      case 3:
+        removeContato(agenda);
         break;
 
       case 4:
         escreverArquivo(agenda);
+        break;
 
      default:
        break;
