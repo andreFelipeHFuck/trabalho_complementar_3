@@ -22,13 +22,17 @@ int main(){
         break;
 
       case 4:
+        buscaNome(agenda);
+        break;
+
+      case 5:
         escreverArquivo(agenda);
         break;
 
      default:
        break;
      }
-  }while (opt != 4);
+  }while (opt != 5);
   free(agenda);
   return 0;
 }

@@ -87,13 +87,13 @@ void insereContato(Agenda *agenda){
     //  __fpurge(stdin);
     //  fgets(pessoa[*nPessoa].endereco.pais, 100, stdin);
 
-    // // Telefone
-    // printf("Telefone:\n ");
-    // printf("DD: ");
-    // scanf("%d", &pessoa[*nPessoa].telefone.dd);
+    // Telefone
+    printf("Telefone:\n ");
+    printf("DD: ");
+    scanf("%d", &agenda->lista->telefone.dd);
 
-    // printf("Numero de telefone: ");
-    // scanf("%d", &pessoa[*nPessoa].telefone.numero);
+    printf("Numero de telefone: ");
+    scanf("%d", &agenda->lista->telefone.numero);
 
     // // Data de nascimento
     // printf("Data de nascimento\n");
@@ -137,6 +137,8 @@ void mostraContatos(Agenda *agenda){
         printf("Nome: %s\n", agenda->lista[i].nome);
         printf("Sobrenome: %s\n", agenda->lista[i].sobrenome);
         printf("Email: %s\n", agenda->lista[i].email);
+        printf("Telefone: (%d) %d\n", agenda->lista->telefone.dd, 
+        agenda->lista->telefone.numero);
         printf("===================================\n" );
        
     }
@@ -175,10 +177,37 @@ void menu(int *opt){
     printf("1 - Inserir novos contatos\n");
     printf("2 - Listar todos os contatos\n");
     printf("3 - Excluir contato\n");
-    printf("4 - Sair\n");
+    printf("4 - Pesquisar contato\n");
+    printf("5 - Sair\n");
     printf("Entre com um opção: ");
     scanf("%d", opt);
 }
+
+// Busca dados de uma pessoa
+void buscaNome(Agenda *agenda){
+    int i;
+    char nome[100];
+
+    system("clear");
+    printf("Pesquisar contato pelo nome\n");
+
+    printf("Nome: ");
+    scanf("%s", nome);
+
+    printf("\nContatos com o nome %s\n", nome);
+    for(i = 0; i < agenda->num_contatos; i++){
+        if(strcmp(nome, agenda->lista[i].nome) == 0){
+            printf("Nome: %s\n", agenda->lista[i].nome);
+            printf("Sobrenome: %s\n", agenda->lista[i].sobrenome);
+            printf("Email: %s\n", agenda->lista[i].email);
+            printf("Telefone: (%d) %d\n", agenda->lista->telefone.dd, 
+            agenda->lista->telefone.numero);
+            printf("\n");
+        }
+    }
+}
+
+
 
 
 
