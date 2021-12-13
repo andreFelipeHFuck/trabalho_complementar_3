@@ -24,15 +24,19 @@ int main(){
       case 4:
         buscaNome(agenda);
         break;
-
+      
       case 5:
+        aniversariantes(agenda);
+        break;
+
+      case 0:
         escreverArquivo(agenda);
         break;
 
      default:
        break;
      }
-  }while (opt != 5);
+  }while (opt != 0);
   free(agenda);
   return 0;
 }

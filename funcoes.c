@@ -37,6 +37,7 @@ void insereContato(Agenda *agenda){
 
     int resp;
     agenda->lista = (Contato*) realloc(agenda->lista, (agenda->num_contatos + 1) * sizeof(Contato));
+    printf("%d", agenda->num_contatos);
 
     if(!agenda->lista){
         printf("Não foi possivel aumentar o vetor de contatos!");
@@ -52,62 +53,62 @@ void insereContato(Agenda *agenda){
         scanf("%s",agenda->lista[agenda->num_contatos].email);
 
     }
-    agenda->num_contatos++;
-
+  
     // Endereço
-    // printf("Endereço\n");
+    printf("Endereço\n");
 
-    // printf("Nome da rua: ");
-    //  __fpurge(stdin);
-    //  fgets(pessoa[*nPessoa].endereco.rua, 100, stdin);
+    printf("Nome da rua: ");
+    __fpurge(stdin);
+    fgets(agenda->lista[agenda->num_contatos].endereco.rua, 100, stdin);
 
-    //  printf("Numero da casa: ");
-    //  scanf("%d", &pessoa[*nPessoa].endereco.numero);
+    printf("Numero da casa: ");
+    scanf("%d", &agenda->lista[agenda->num_contatos].endereco.numero);
 
-    //  printf("Complemento: ");
-    //  __fpurge(stdin);
-    //  fgets(pessoa[*nPessoa].endereco.complemento, 100, stdin);
+    printf("Complemento: ");
+    __fpurge(stdin);
+    fgets(agenda->lista[agenda->num_contatos].endereco.complemento, 100, stdin);
 
-    //  printf("Nome do bairro: ");
-    //  __fpurge(stdin);
-    //  fgets(pessoa[*nPessoa].endereco.bairro, 100, stdin);
+    printf("Nome do bairro: ");
+     __fpurge(stdin);
+    fgets(agenda->lista[agenda->num_contatos].endereco.bairro, 100, stdin);
 
-    //  printf("Numero do cep: ");
-    //  scanf("%d", &pessoa[*nPessoa].endereco.cep);
+    printf("Numero do cep: ");
+    scanf("%d", &agenda->lista[agenda->num_contatos].endereco.cep);
 
-    //  printf("Nome da cidade: ");
-    //  __fpurge(stdin);
-    //  fgets(pessoa[*nPessoa].endereco.cidade, 100, stdin);
+    printf("Nome da cidade: ");
+    __fpurge(stdin);
+    fgets(agenda->lista[agenda->num_contatos].endereco.cidade, 100, stdin);
 
-    //  printf("Nome da estado: ");
-    //  __fpurge(stdin);
-    //  fgets(pessoa[*nPessoa].endereco.estado, 100, stdin);
+    printf("Nome da estado: ");
+    __fpurge(stdin);
+    fgets(agenda->lista[agenda->num_contatos].endereco.estado, 100, stdin);
 
-    //  printf("Pais: ");
-    //  __fpurge(stdin);
-    //  fgets(pessoa[*nPessoa].endereco.pais, 100, stdin);
+    printf("Pais: ");
+    __fpurge(stdin);
+    fgets(agenda->lista[agenda->num_contatos].endereco.pais, 100, stdin);
 
     // Telefone
-    printf("Telefone:\n ");
+    printf("Telefone:\n N: %d\n", agenda->num_contatos);
     printf("DD: ");
-    scanf("%d", &agenda->lista->telefone.dd);
+    scanf("%d", &agenda->lista[agenda->num_contatos].telefone.dd);
 
     printf("Numero de telefone: ");
-    scanf("%d", &agenda->lista->telefone.numero);
+    scanf("%d", &agenda->lista[agenda->num_contatos].telefone.numero);
 
-    // // Data de nascimento
-    // printf("Data de nascimento\n");
+    // Data de nascimento
+    printf("Data de nascimento\n");
 
-    // printf("Dia: ");
-    // scanf("%d", &pessoa[*nPessoa].data.dia);
+    printf("Dia: ");
+    scanf("%d", &agenda->lista[agenda->num_contatos].data.dia);
 
-    // printf("Mes: ");
-    // scanf("%d", &pessoa[*nPessoa].data.mes);
+    printf("Mes: ");
+    scanf("%d", &agenda->lista[agenda->num_contatos].data.mes);
 
-    // printf("Ano: ");
-    // scanf("%d", &pessoa[*nPessoa].data.ano);
+    printf("Ano: ");
+    scanf("%d", &agenda->lista[agenda->num_contatos].data.ano);
 
     printf("\n");
+    agenda->num_contatos++;
     
     while (1)
     {
@@ -137,8 +138,22 @@ void mostraContatos(Agenda *agenda){
         printf("Nome: %s\n", agenda->lista[i].nome);
         printf("Sobrenome: %s\n", agenda->lista[i].sobrenome);
         printf("Email: %s\n", agenda->lista[i].email);
-        printf("Telefone: (%d) %d\n", agenda->lista->telefone.dd, 
-        agenda->lista->telefone.numero);
+        printf("Telefone: (%d) %d\n",  agenda->lista[i].telefone.dd, 
+         agenda->lista[i].telefone.numero);
+        printf("Data de nascimento: %d/%d/%d\n",
+        agenda->lista[i].data.dia,
+        agenda->lista[i].data.mes,
+        agenda->lista[i].data.ano);
+
+        printf("Endereço:\n ");
+        printf("Nome da rua: %s\n", agenda->lista[i].endereco.rua);
+        printf("Numero da casa: %d\n", agenda->lista[i].endereco.numero);
+        printf("Complemento: %s\n", agenda->lista[i].endereco.complemento);
+        printf("Bairro: %s\n", agenda->lista[i].endereco.bairro);
+        printf("CEP: %d\n", agenda->lista[i].endereco.cep);
+        printf("Cidade: %s\n", agenda->lista[i].endereco.cidade);
+        printf("Estado: %s\n", agenda->lista[i].endereco.estado);
+        printf("Pais: %s\n", agenda->lista[i].endereco.pais);
         printf("===================================\n" );
        
     }
@@ -177,8 +192,9 @@ void menu(int *opt){
     printf("1 - Inserir novos contatos\n");
     printf("2 - Listar todos os contatos\n");
     printf("3 - Excluir contato\n");
-    printf("4 - Pesquisar contato\n");
-    printf("5 - Sair\n");
+    printf("4 - Buscar contato\n");
+    printf("5 - Buscar aniversariantes\n");
+    printf("0 - Sair\n");
     printf("Entre com um opção: ");
     scanf("%d", opt);
 }
@@ -197,17 +213,79 @@ void buscaNome(Agenda *agenda){
     printf("\nContatos com o nome %s\n", nome);
     for(i = 0; i < agenda->num_contatos; i++){
         if(strcmp(nome, agenda->lista[i].nome) == 0){
+            printf("===================================\n" );
             printf("Nome: %s\n", agenda->lista[i].nome);
             printf("Sobrenome: %s\n", agenda->lista[i].sobrenome);
             printf("Email: %s\n", agenda->lista[i].email);
-            printf("Telefone: (%d) %d\n", agenda->lista->telefone.dd, 
-            agenda->lista->telefone.numero);
+            printf("Telefone: (%d) %d\n",  agenda->lista[i].telefone.dd, 
+            agenda->lista[i].telefone.numero);
+            printf("Data de nascimento: %d/%d/%d\n",
+            agenda->lista[i].data.dia,
+            agenda->lista[i].data.mes,
+            agenda->lista[i].data.ano);
+
+            printf("Endereço:\n ");
+            printf("Nome da rua: %s\n", agenda->lista[i].endereco.rua);
+            printf("Numero da casa: %d\n", agenda->lista[i].endereco.numero);
+            printf("Complemento: %s\n", agenda->lista[i].endereco.complemento);
+            printf("Bairro: %s\n", agenda->lista[i].endereco.bairro);
+            printf("CEP: %d\n", agenda->lista[i].endereco.cep);
+            printf("Cidade: %s\n", agenda->lista[i].endereco.cidade);
+            printf("Estado: %s\n", agenda->lista[i].endereco.estado);
+            printf("Pais: %s\n", agenda->lista[i].endereco.pais);
             printf("\n");
+            printf("===================================\n" );
+            
         }
     }
 }
 
+void aniversariantes(Agenda *agenda){
+    int opcao;
+    int i, mes, dia;
 
+    system("clear");
+    do
+    {
+         printf("Busca aniversariantes:\n");
+         printf("1 - Por mês\n");
+         printf("2 - Por dia\n");
+         printf("3 - Sair\n");
+         printf("Opção: ");
+         scanf("%d", &opcao);
+
+         switch (opcao)
+         {
+         case 1:
+            printf("Busca aniversariantes por mes\n");
+            printf("Mes: ");
+            scanf("%d", &mes);
+            for(i = 0; i < agenda->num_contatos; i++){
+                if(mes == agenda->lista[i].data.mes){
+                    printf("%s\n", agenda->lista[i].nome);
+                }
+            }
+            break;
+         case 2:
+            printf("Busca aniversariantes por dia\n");
+            printf("Dia: ");
+            scanf("%d", &dia);
+            for(i = 0; i < agenda->num_contatos; i++){
+                if(dia == agenda->lista[i].data.dia){
+                    printf("%s\n", agenda->lista[i].nome);
+                }
+            }
+            break;
+         default:
+            printf("Opção invalida\n");
+             break;
+         }
+    }while(opcao != 3);
+}
+
+void aniversariantes_mes(Agenda *agenda){
+ 
+}
 
 
 
