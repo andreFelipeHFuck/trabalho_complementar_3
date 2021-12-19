@@ -3,9 +3,10 @@
 #include <string.h>
 #include <stdio_ext.h>
 
+
 /*
 Trabalho complementar 3
-Arquivo com as estruturas de dados e com as funções
+Arquivo com as estruturas de dados e com o cabeçalho das funções
 */
 
 /*
@@ -48,8 +49,17 @@ typedef struct
     Data data;
 }Contato;
 
+// Estrutura de dados que contem o número de contatos da agenda e a
+// lista de contendo todos os contatos
 typedef struct 
 {
     int num_contatos;
     Contato *lista;
 }Agenda;
+
+// Fuções
+
+/*
+Função que inicializa a agenda
+*/
+Agenda* iniciarAgenda();

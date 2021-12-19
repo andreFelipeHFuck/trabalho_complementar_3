@@ -3,7 +3,7 @@
 
 int main(){
   int opt;
-  Agenda *agenda = iniciar_agenda();
+  Agenda *agenda = iniciarAgenda();
    
   do{
     menu(&opt) ;
