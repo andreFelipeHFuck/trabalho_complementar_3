@@ -51,79 +51,79 @@ void insereContato(Agenda *agenda){
         printf("Email: ");
         scanf("%s",agenda->lista[agenda->num_contatos].email);
 
+        // Data de nascimento
+        printf("Data de nascimento\n");
+
+        printf("Dia: ");
+        scanf("%d", &agenda->lista[agenda->num_contatos].data.dia);
+
+        printf("Mes: ");
+        scanf("%d", &agenda->lista[agenda->num_contatos].data.mes);
+
+        printf("Ano: ");
+        scanf("%d", &agenda->lista[agenda->num_contatos].data.ano);
+
+        // Endereço
+        printf("Endereço\n");
+
+        printf("Nome da rua: ");
+        __fpurge(stdin);
+        fgets(agenda->lista[agenda->num_contatos].endereco.rua, 100, stdin);
+
+        printf("Numero da casa: ");
+        scanf("%d", &agenda->lista[agenda->num_contatos].endereco.numero);
+
+        printf("Complemento: ");
+        __fpurge(stdin);
+        fgets(agenda->lista[agenda->num_contatos].endereco.complemento, 100, stdin);
+
+        printf("Bairro: ");
+        __fpurge(stdin);
+        fgets(agenda->lista[agenda->num_contatos].endereco.bairro, 100, stdin);
+
+        printf("Cep: ");
+        scanf("%d", &agenda->lista[agenda->num_contatos].endereco.cep);
+
+        printf("Cidade: ");
+        __fpurge(stdin);
+        fgets(agenda->lista[agenda->num_contatos].endereco.cidade, 100, stdin);
+
+        printf("Estado: ");
+        __fpurge(stdin);
+        fgets(agenda->lista[agenda->num_contatos].endereco.estado, 100, stdin);
+
+        printf("Pais: ");
+        __fpurge(stdin);
+        fgets(agenda->lista[agenda->num_contatos].endereco.pais, 100, stdin);
+
+        // Telefone
+        printf("Telefone:\n N: %d\n", agenda->num_contatos);
+        printf("DD: ");
+        scanf("%d", &agenda->lista[agenda->num_contatos].telefone.dd);
+
+        printf("Numero de telefone: ");
+        scanf("%d", &agenda->lista[agenda->num_contatos].telefone.numero);
+
+        printf("\n");
+        agenda->num_contatos++;
+        
+        while (1)
+        {
+            printf("Deseja registrar um novo contato?\n");
+            printf("1 - Sim\n");
+            printf("2 - Nao\n");
+            scanf("%d", &resp);
+            if((resp == 1) || (resp == 2)){
+                break;
+            }
+            
+        }
+        if(resp == 1){
+            insereContato(agenda);
+        }
+
     }
   
-    // Endereço
-    printf("Endereço\n");
-
-    printf("Nome da rua: ");
-    __fpurge(stdin);
-    fgets(agenda->lista[agenda->num_contatos].endereco.rua, 100, stdin);
-
-    printf("Numero da casa: ");
-    scanf("%d", &agenda->lista[agenda->num_contatos].endereco.numero);
-
-    printf("Complemento: ");
-    __fpurge(stdin);
-    fgets(agenda->lista[agenda->num_contatos].endereco.complemento, 100, stdin);
-
-    printf("Nome do bairro: ");
-     __fpurge(stdin);
-    fgets(agenda->lista[agenda->num_contatos].endereco.bairro, 100, stdin);
-
-    printf("Numero do cep: ");
-    scanf("%d", &agenda->lista[agenda->num_contatos].endereco.cep);
-
-    printf("Nome da cidade: ");
-    __fpurge(stdin);
-    fgets(agenda->lista[agenda->num_contatos].endereco.cidade, 100, stdin);
-
-    printf("Nome da estado: ");
-    __fpurge(stdin);
-    fgets(agenda->lista[agenda->num_contatos].endereco.estado, 100, stdin);
-
-    printf("Pais: ");
-    __fpurge(stdin);
-    fgets(agenda->lista[agenda->num_contatos].endereco.pais, 100, stdin);
-
-    // Telefone
-    printf("Telefone:\n N: %d\n", agenda->num_contatos);
-    printf("DD: ");
-    scanf("%d", &agenda->lista[agenda->num_contatos].telefone.dd);
-
-    printf("Numero de telefone: ");
-    scanf("%d", &agenda->lista[agenda->num_contatos].telefone.numero);
-
-    // Data de nascimento
-    printf("Data de nascimento\n");
-
-    printf("Dia: ");
-    scanf("%d", &agenda->lista[agenda->num_contatos].data.dia);
-
-    printf("Mes: ");
-    scanf("%d", &agenda->lista[agenda->num_contatos].data.mes);
-
-    printf("Ano: ");
-    scanf("%d", &agenda->lista[agenda->num_contatos].data.ano);
-
-    printf("\n");
-    agenda->num_contatos++;
-    
-    while (1)
-    {
-         printf("Deseja registrar um novo contato?\n");
-         printf("1 - Sim\n");
-         printf("2 - Nao\n");
-         scanf("%d", &resp);
-         if((resp == 1) || (resp == 2)){
-             break;
-         }
-         
-    }
-     if(resp == 1){
-        insereContato(agenda);
-    }
-    
 }
 
 void mostraContatos(Agenda *agenda){

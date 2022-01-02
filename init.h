@@ -63,3 +63,42 @@ typedef struct
 Função que inicializa a agenda
 */
 Agenda* iniciarAgenda();
+
+/*
+Escreve os dados no arquivo binário
+*/
+void escreverArquivo(Agenda *agenda);
+
+/*
+Insere os dados de um novo contato
+Dados:
++ Nome, sobrenome, email
++ Data de nascimento: dia, mes, ano
++ Endereço: rua, numero, complemento, bairro, cep, cidade, estdo, pais
+*/
+void insereContato(Agenda *agenda);
+
+/*
+Imprime na tela o dados de todos os contatos
+*/
+void mostrarConstatos(Agenda *agenda);
+
+/*
+Revome os dados de um contato
+*/
+void removerContato(Agenda *agenda);
+
+/*
+Menu
+*/
+void menu(int *opt);
+
+/*
+Busca os dados dos contatos a partir do nome
+*/
+void buscaNome(Agenda *agenda);
+
+/*
+Busca os aniversariantes por dia ou por mes
+*/
+void aniversariantes(Agenda *agenda);
